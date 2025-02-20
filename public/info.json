@@ -1,0 +1,30 @@
+[
+    {
+      "id": "1",
+      "title": "Design Homepage",
+      "description": "Create the UI layout for the home page.",
+      "timestamp": "2025-02-19T10:00:00Z",
+      "category": "todo"
+    },
+    {
+      "id": "2",
+      "title": "Set Up Firebase Auth",
+      "description": "Implement Google Sign-In for user authentication.",
+      "timestamp": "2025-02-19T11:00:00Z",
+      "category": "todo"
+    },
+    {
+      "id": "3",
+      "title": "Implement Drag and Drop",
+      "description": "Enable task reordering using react-beautiful-dnd.",
+      "timestamp": "2025-02-19T12:00:00Z",
+      "category": "inProgress"
+    },
+    {
+      "id": "4",
+      "title": "Set Up MongoDB",
+      "description": "Connect backend with MongoDB and test API endpoints.",
+      "timestamp": "2025-02-19T13:00:00Z",
+      "category": "done"
+    }
+  ]
