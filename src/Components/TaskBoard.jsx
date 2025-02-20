@@ -3,8 +3,7 @@ import axios from "axios";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { FaEdit, FaTrash } from "react-icons/fa"; // Import icons
-
+import { FaEdit, FaTrash } from "react-icons/fa";
 const TaskBoard = () => {
   const [tasks, setTasks] = useState({
     todo: [],
@@ -13,7 +12,7 @@ const TaskBoard = () => {
   });
 
   const [newTask, setNewTask] = useState({ title: "", description: "", category: "todo" });
-  const [editTask, setEditTask] = useState(null); // Holds task data for modal editing
+  const [editTask, setEditTask] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Fetch tasks from backend

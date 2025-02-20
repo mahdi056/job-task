@@ -35,9 +35,10 @@ const Login = () => {
       <ToastContainer></ToastContainer>
 
       <h1 className="text-4xl font-bold text-center mt-20">Please Signup or Signin</h1>
-      <div className="flex justify-center items-center mt-20">
-
-        <button type="button" className="btn btn-outline btn-accent mt-4" onClick={handleGoogleSignIn}>
+      
+      <div className="flex justify-center items-center mt-8">
+       
+        <button type="button" className="btn btn-outline btn-accent" onClick={handleGoogleSignIn}>
           Sign In With Google <FaGoogle className="ml-2" />
         </button>
       </div>
