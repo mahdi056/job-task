@@ -1,8 +1,22 @@
-# React + Vite
+# Description
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Task management is the process of organizing, tracking, and prioritizing tasks to ensure timely completion and efficient workflow. It involves setting clear goals, assigning responsibilities, and creating a structured plan to accomplish tasks. Effective task management enables individuals and teams to stay organized, minimize stress, and maintain focus on important objectives.
 
-Currently, two official plugins are available:
+# Live site
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### https://job-task-2849e.web.app/
+
+# Dependencies
+### hello-pangea/dnd, axois, react icon, react router, react-toastify
+
+# Installation staps
+
+### git clone https://github.com/mahdi056/job-task.git
+
+### npm install
+
+### npm run dev
+
+# Technologies used
+
+### Node js, Express js, MongoDB, Cors 

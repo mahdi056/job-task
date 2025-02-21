@@ -17,7 +17,7 @@ const TaskBoard = () => {
 
   // Fetch tasks from backend
   useEffect(() => {
-    axios.get("http://localhost:5000/tasks")
+    axios.get("https://job-task-backend-one.vercel.app/tasks")
       .then((res) => {
         const categorizedTasks = {
           todo: res.data.filter(task => task.category === "todo"),
@@ -26,31 +26,58 @@ const TaskBoard = () => {
         };
         setTasks(categorizedTasks);
       })
-      .catch(() => toast.error("Failed to load tasks"));
+      .catch(() => console.error("Failed to load tasks"));
   }, []);
 
   // Handle drag and drop
   const onDragEnd = async (result) => {
     if (!result.destination) return;
-
+  
     const { source, destination } = result;
-    const sourceList = [...tasks[source.droppableId]];
-    const destList = [...tasks[destination.droppableId]];
-
-    const movedTask = { ...sourceList[source.index] };
-    sourceList.splice(source.index, 1);
-    movedTask.category = destination.droppableId;
-    destList.splice(destination.index, 0, movedTask);
-
-    setTasks({ ...tasks, [source.droppableId]: sourceList, [destination.droppableId]: destList });
-
-    try {
-      await axios.put(`http://localhost:5000/tasks/${movedTask._id}`, movedTask);
-    } catch {
-      toast.error("Failed to update task");
+  
+    if (source.droppableId === destination.droppableId) {
+      // Reordering within the same category
+      const updatedTasks = Array.from(tasks[source.droppableId]);
+      const [movedTask] = updatedTasks.splice(source.index, 1);
+      updatedTasks.splice(destination.index, 0, movedTask);
+  
+      setTasks((prev) => ({
+        ...prev,
+        [source.droppableId]: updatedTasks,
+      }));
+  
+      try {
+        await axios.put(`https://job-task-backend-one.vercel.app/tasks/reorder`, {
+          category: source.droppableId,
+          tasks: updatedTasks.map((task) => task._id),
+        });
+      } catch {
+        console.error("Failed to reorder tasks");
+      }
+    } else {
+      // Moving to a different category
+      const sourceList = [...tasks[source.droppableId]];
+      const destList = [...tasks[destination.droppableId]];
+      const movedTask = { ...sourceList[source.index] };
+  
+      sourceList.splice(source.index, 1);
+      movedTask.category = destination.droppableId;
+      destList.splice(destination.index, 0, movedTask);
+  
+      setTasks((prev) => ({
+        ...prev,
+        [source.droppableId]: sourceList,
+        [destination.droppableId]: destList,
+      }));
+  
+      try {
+        await axios.put(`https://job-task-backend-one.vercel.app/tasks/${movedTask._id}`, movedTask);
+      } catch {
+        console.error("Failed to update task category");
+      }
     }
   };
-
+  
   // Handle adding a task
   const handleAddTask = async () => {
     if (!newTask.title || !newTask.description) {
@@ -61,7 +88,7 @@ const TaskBoard = () => {
     const taskWithTimestamp = { ...newTask, timestamp: new Date().toISOString() };
 
     try {
-      const res = await axios.post("http://localhost:5000/tasks", taskWithTimestamp);
+      const res = await axios.post("https://job-task-backend-one.vercel.app/tasks", taskWithTimestamp);
       setTasks(prev => ({
         ...prev,
         [newTask.category]: [...prev[newTask.category], res.data.task],
@@ -69,21 +96,21 @@ const TaskBoard = () => {
       toast.success("Task added successfully!");
       setNewTask({ title: "", description: "", category: "todo" });
     } catch {
-      toast.error("Failed to add task");
+      console.error("Failed to add task");
     }
   };
 
   // Handle deleting a task
   const handleDeleteTask = async (id, category) => {
     try {
-      await axios.delete(`http://localhost:5000/tasks/${id}`);
+      await axios.delete(`https://job-task-backend-one.vercel.app/tasks/${id}`);
       setTasks(prev => ({
         ...prev,
         [category]: prev[category].filter(task => task._id !== id),
       }));
       toast.success("Task deleted successfully!");
     } catch {
-      toast.error("Failed to delete task");
+      console.error("Failed to delete task");
     }
   };
 
@@ -96,7 +123,7 @@ const TaskBoard = () => {
   // Handle updating a task
   const handleUpdateTask = async () => {
     try {
-      await axios.put(`http://localhost:5000/tasks/${editTask._id}`, editTask);
+      await axios.put(`https://job-task-backend-one.vercel.app/tasks/${editTask._id}`, editTask);
       setTasks(prev => ({
         ...prev,
         [editTask.category]: prev[editTask.category].map(task => task._id === editTask._id ? editTask : task),
@@ -104,7 +131,7 @@ const TaskBoard = () => {
       toast.success("Task updated successfully!");
       setIsModalOpen(false);
     } catch {
-      toast.error("Failed to update task");
+      console.error("Failed to update task");
     }
   };
 
@@ -125,7 +152,7 @@ const TaskBoard = () => {
       </div>
 
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className="flex space-x-4">
+        <div className="flex flex-col lg:flex-row items-center gap-4">
           {["todo", "inProgress", "done"].map((category) => (
             <Droppable key={category} droppableId={category}>
               {(provided) => (

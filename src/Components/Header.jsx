@@ -18,12 +18,12 @@ const Header = () => {
                         <ul
                             tabIndex={0}
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                           <NavLink to='/'> <li><a>Home</a></li></NavLink>
+                           <NavLink to='/'> <li>Home</li></NavLink>
 
                            {
-                            user? ( <NavLink to="/task"><li><a>Manage Task</a></li></NavLink>)
+                            user? ( <NavLink to="/task"><li>Manage Task</li></NavLink>)
                             :
-                            ( <NavLink to="/login"><li><a>Manage Task</a></li></NavLink>)
+                            ( <NavLink to="/login"><li>Manage Task</li></NavLink>)
                            }
                            
                           
@@ -32,24 +32,24 @@ const Header = () => {
                     <a className="btn btn-ghost text-xl">Task Management</a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1">
+                    <ul className="menu menu-horizontal px-1  space-x-2">
 
-                    <NavLink to='/'> <li><a>Home</a></li></NavLink>
+                    <NavLink to='/'> <li>Home</li></NavLink>
 
                            {
-                            user? ( <NavLink to="/task"><li><a>Manage Task</a></li></NavLink>)
+                            user? ( <NavLink to="/task"><li>Manage Task</li></NavLink>)
                             :
-                            ( <NavLink to="/login"><li><a>Manage Task</a></li></NavLink>)
+                            ( <NavLink to="/login"><li>Manage Task</li></NavLink>)
                            }
                        
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <img src={user?.photourl} alt="" />
+                    <img className="max-w-12 rounded-full" src={user?.photourl} alt="" />
                     {
-                        user? ( <Link to='/'><a onClick={logout} className="btn btn-outline btn-error">Logout</a></Link>)
+                        user? ( <Link to='/'><button onClick={logout} className="btn btn-outline btn-error">Logout</button></Link>)
                         :
-                        (<Link to='/login'> <a className="btn btn-outline btn-info">Login</a> </Link>)
+                        (<Link to='/login'> <button className="btn btn-outline btn-info">Login</button> </Link>)
                     }
                    
                 </div>
